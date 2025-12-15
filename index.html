@@ -1,0 +1,126 @@
+DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Instagram All-in-One Public Checker</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body{
+  font-family: Arial, sans-serif;
+  background:#f2f2f2;
+  margin:0;
+  padding:0;
+}
+.container{
+  max-width:420px;
+  margin:auto;
+  padding:15px;
+}
+h2{
+  text-align:center;
+}
+input{
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  font-size:16px;
+
+button{
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  background:#0095f6;
+  color:white;
+  border:none;
+  font-size:16px;
+  border-radius:8px;
+  font-weight:bold;
+}
+.card{
+  background:white;
+  margin-top:15px;
+  padding:12px;
+  border-radius:10px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+}
+.row{
+  display:flex;
+  justify-content:space-between;
+  margin-top:6px;
+}
+.small{
+  font-size:12px;
+  color:gray;
+  margin-top:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h2>Instagram Public Profile Checker</h2>
+
+<input type="text" id="username" placeholder="Enter Instagram Username">
+<button onclick="checkProfile()">Check Profile</button>
+
+<div id="result" style="display:none;">
+
+  <div class="card">
+    <b>Profile Info</b>
+    <div class="row"><span>Username</span><span id="u"></span></div>
+    <div class="row"><span>Account Type</span><span>Public</span></div>
+  </div>
+
+  <div class="card">
+    <b>Stats</b>
+    <div class="row"><span>Followers</span><span id="f"></span></div>
+    <div class="row"><span>Following</span><span id="fg"></span></div>
+    <div class="row"><span>Posts</span><span id="p"></span></div>
+  </div>
+
+  <div class="card">
+    <b>Story & Highlights</b>
+    <div class="row"><span>Story</span><span id="s"></span></div>
+    <div class="row"><span>Highlights</span><span id="h"></span></div>
+  </div>
+
+  <div class="card">
+    <b>Engagement (Estimate)</b>
+    <div class="row"><span>Status</span><span>Normal</span></div>
+  </div>
+
+</div>
+
+<p class="small">
+This tool shows only PUBLIC information.<br>
+It does NOT show story viewers or private account data.<br>
+No login required.
+</p>
+
+</div>
+
+<script>
+function checkProfile(){
+  var user = document.getElementById("username").value;
+  if(user==""){
+    alert("Enter username");
+    return;
+  }
+
+  document.getElementById("result").style.display="block";
+  document.getElementById("u").innerText = user;
+
+  // Demo data (safe & legal UI)
+  document.getElementById("f").innerText = "Visible on Instagram";
+  document.getElementById("fg").innerText = "Visible on Instagram";
+  document.getElementById("p").innerText = "Visible on Instagram";
+  document.getElementById("s").innerText = "Check on Instagram App";
+  document.getElementById("h").innerText = "If available";
+}
+</script>
+
+</body>
+</html>
