@@ -1,33 +1,155 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Instagram Viewer</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
+<meta charset="UTF-8">
+<title>Instagram Profile Viewer</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<div class="card">
-  <div class="profile">
-    <img src="https://i.imgur.com/8Km9tLL.jpg">
-    <div>
-      <h2 id="username">@username</h2>
-      <p>1 posts • 300 followers • 286 following</p>
+<style>
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#0f0f0f;
+  color:#fff;
+}
+.container{
+  max-width:420px;
+  margin:auto;
+  padding:15px;
+}
+h2{
+  text-align:center;
+  margin-bottom:15px;
+}
+input{
+  width:100%;
+  padding:12px;
+  border-radius:8px;
+  border:none;
+  outline:none;
+  font-size:16px;
+}
+button{
+  width:100%;
+  margin-top:10px;
+  padding:12px;
+  background:linear-gradient(90deg,#7b4cff,#a855f7);
+  border:none;
+  border-radius:10px;
+  color:white;
+  font-size:16px;
+  font-weight:bold;
+}
+.card{
+  background:#1c1c1c;
+  border-radius:12px;
+  padding:15px;
+  margin-top:15px;
+}
+.profile{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.avatar{
+  width:70px;
+  height:70px;
+  border-radius:50%;
+  background:#333;
+}
+.stats{
+  display:flex;
+  justify-content:space-between;
+  margin-top:15px;
+}
+.stat{
+  text-align:center;
+}
+.tabs{
+  display:flex;
+  justify-content:space-around;
+  margin-top:15px;
+  border-bottom:1px solid #333;
+}
+.tab{
+  padding:10px;
+  color:#aaa;
+}
+.tab.active{
+  color:#a855f7;
+  border-bottom:2px solid #a855f7;
+}
+.fakebox{
+  background:#2a2a2a;
+  height:120px;
+  border-radius:10px;
+  margin-top:10px;
+}
+.small{
+  font-size:12px;
+  color:#888;
+  margin-top:10px;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<h2>Instagram Profile Viewer</h2>
+
+<input id="username" placeholder="Enter Instagram username or URL">
+<button onclick="check()">View Profile</button>
+
+<div id="result" style="display:none">
+
+  <div class="card">
+    <div class="profile">
+      <div class="avatar"></div>
+      <div>
+        <b id="uname">@username</b><br>
+        <span class="small">Public Account</span>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><b>—</b><br><span class="small">Posts</span></div>
+      <div class="stat"><b>—</b><br><span class="small">Followers</span></div>
+      <div class="stat"><b>—</b><br><span class="small">Following</span></div>
+    </div>
+
+    <div class="tabs">
+      <div class="tab active">POSTS</div>
+      <div class="tab">STORIES</div>
+      <div class="tab">HIGHLIGHTS</div>
+      <div class="tab">REELS</div>
+    </div>
+
+    <div class="fakebox"></div>
+
+    <div class="small">
+      This tool shows only public information.<br>
+      Stories & highlights must be viewed on Instagram.
     </div>
   </div>
 
-  <div class="tabs">
-    <button onclick="showTab('posts')">POSTS</button>
-    <button onclick="showTab('stories')">STORIES</button>
-    <button onclick="showTab('highlights')">HIGHLIGHTS</button>
-    <button onclick="showTab('reels')">REELS</button>
-  </div>
-
-  <div id="content">
-    <img src="https://i.imgur.com/QCNbOAo.jpg" class="post">
-    <button class="download">Download</button>
-  </div>
 </div>
 
-<script src="script.js"></script>
+</div>
+
+<script>
+function check(){
+  let u = document.getElementById("username").value.trim();
+  if(u==="") return alert("Enter username");
+
+  if(u.includes("instagram.com")){
+    u = u.split("instagram.com/")[1].split("/")[0];
+  }
+
+  document.getElementById("uname").innerText = "@"+u;
+  document.getElementById("result").style.display="block";
+}
+</script>
+
 </body>
 </html>
