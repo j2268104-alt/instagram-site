@@ -1,0 +1,135 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Instagram Public Profile Viewer</title>
+  <style>
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
+      background:#0b0b0f;
+      color:#fff;
+    }
+    .container{max-width:420px;margin:auto;padding:14px}
+    .header{text-align:center;margin:10px 0 16px}
+    .header h1{font-size:20px;margin:0}
+    .header p{font-size:12px;color:#9aa}.input-box{display:flex;gap:8px}
+input{
+  flex:1;padding:12px 14px;border-radius:10px;border:1px solid #222;
+  background:#12121a;color:#fff;font-size:15px
+}
+button.primary{
+  padding:12px 14px;border-radius:10px;border:none;cursor:pointer;
+  background:linear-gradient(135deg,#a855f7,#6366f1);color:#fff;font-weight:600
+}
+
+.loader{display:none;margin:14px 0;text-align:center;color:#bbb}
+
+.card{display:none;background:#12121a;border:1px solid #1f2030;border-radius:14px;padding:14px}
+.profile{display:flex;gap:12px;align-items:center}
+.avatar{width:64px;height:64px;border-radius:50%;background:#2a2a40}
+.name{font-weight:700}
+.badge{font-size:11px;color:#9aa}
+
+.stats{display:flex;justify-content:space-between;margin-top:12px;text-align:center}
+.stat{flex:1}
+.stat b{display:block;font-size:14px}
+.stat span{font-size:12px;color:#9aa}
+
+.tabs{display:flex;gap:8px;margin-top:14px}
+.tab{flex:1;padding:10px;border-radius:10px;border:1px solid #1f2030;background:#0f1020;color:#cbd;cursor:pointer;font-size:13px}
+.tab.active{background:#1a1b3a;color:#fff}
+
+.content{margin-top:12px;border-top:1px dashed #222;padding-top:12px;font-size:14px;color:#cbd}
+
+.cta{margin-top:12px}
+.cta a{display:block;text-align:center;padding:12px;border-radius:10px;background:#22c55e;color:#041;text-decoration:none;font-weight:700}
+
+.footer{margin-top:16px;font-size:11px;color:#889;text-align:center}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Instagram Public Profile Viewer</h1>
+      <p>Check PUBLIC profile info • No login required</p>
+    </div><div class="input-box">
+  <input id="input" placeholder="Enter Instagram username or URL" />
+  <button class="primary" onclick="checkProfile()">Check</button>
+</div>
+
+<div class="loader" id="loader">Fetching public info…</div>
+
+<div class="card" id="card">
+  <div class="profile">
+    <div class="avatar"></div>
+    <div>
+      <div class="name" id="uname">@username</div>
+      <div class="badge">Public account</div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><b>Posts</b><span>Visible</span></div>
+    <div class="stat"><b>Followers</b><span>Visible</span></div>
+    <div class="stat"><b>Following</b><span>Visible</span></div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('posts',this)">Posts</button>
+    <button class="tab" onclick="showTab('stories',this)">Stories</button>
+    <button class="tab" onclick="showTab('highlights',this)">Highlights</button>
+    <button class="tab" onclick="showTab('reels',this)">Reels</button>
+  </div>
+
+  <div class="content" id="content">
+    Posts are public. Open Instagram to view full content.
+  </div>
+
+  <div class="cta">
+    <a href="#" onclick="openIG()">Open on Instagram</a>
+  </div>
+</div>
+
+<div class="footer">
+  This tool shows only PUBLIC information. Not affiliated with Instagram.
+</div>
+
+  </div>  <script>
+    let currentUser = '';
+    function cleanUsername(val){
+      if(val.includes('instagram.com')){
+        val = val.split('instagram.com/')[1] || '';
+      }
+      return val.replace(/\?.*$/,'').replace(/\/$/,'');
+    }
+    function checkProfile(){
+      let v = document.getElementById('input').value.trim();
+      if(!v){ alert('Enter username or URL'); return; }
+      currentUser = cleanUsername(v);
+      document.getElementById('loader').style.display='block';
+      document.getElementById('card').style.display='none';
+      setTimeout(()=>{
+        document.getElementById('loader').style.display='none';
+        document.getElementById('uname').innerText='@'+currentUser;
+        document.getElementById('card').style.display='block';
+        showTab('posts', document.querySelector('.tab'));
+      },900);
+    }
+    function showTab(type,btn){
+      document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+      btn.classList.add('active');
+      const c = document.getElementById('content');
+      if(type==='stories') c.innerText='Stories are visible on Instagram app for public accounts.';
+      else if(type==='highlights') c.innerText='Highlights are available if the profile has any.';
+      else if(type==='reels') c.innerText='Reels can be viewed on Instagram.';
+      else c.innerText='Posts are public. Open Instagram to view full content.';
+    }
+    function openIG(){
+      if(!currentUser) return;
+      window.open('https://www.instagram.com/'+currentUser,'_blank');
+    }
+  </script></body>
+</html>
